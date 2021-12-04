@@ -28,6 +28,7 @@ Define a function named **withdraw** that will accept two arguments.
 //Define a `public` function named `setAccounts` that receive two `address payable` arguments named `account1` and `account2`.
 //Finally, add the **default fallback function** so that your contract can store Ether sent from outside the deposit function.
 
+
 pragma solidity ^0.5.0;
 
 contract JointSavings {
@@ -36,31 +37,25 @@ contract JointSavings {
     address public lastToWithdraw;
     uint public lastWithdrawAmount;
     uint public contractBalance;
-    }
-
+    
     function withdraw(uint amount, address payable recipient) public {
-
-        require(receipient == accountOne
+        require((recipient == accountOne) || (recipient == accountTwo), "You don't own this account");
         require(amount <= contractBalance, "There are insufficient funds in this account!");
+
         if(lastToWithdraw != recipient){
             lastToWithdraw = recipient;
         }
+        
         recipient.transfer(amount);
         lastWithdrawAmount = amount;
-        contactBalance = address(this).balance; 
-    }
-
+        contractBalance = address(this).balance;
+        }
     function deposit() public payable {
         contractBalance = address(this).balance;
-        require(accountOne != address(0);
     }
-
     function setAccounts (address payable account1, address payable account2) public{
         accountOne = account1; 
         accountTwo = account2; 
     }
-
-    function () external payable 
-    }
-
-    
+    function() external payable {}
+}
